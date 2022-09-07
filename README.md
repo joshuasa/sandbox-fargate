@@ -1,1 +1,1 @@
-# sandbox-fargate
+# Fargate SandBox Tutorial App
