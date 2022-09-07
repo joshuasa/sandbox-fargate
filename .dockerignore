@@ -1,0 +1,18 @@
+.dockerignore
+Dockerfile
+
+/.git
+.gitignore
+
+README.md
+
+# vscode settings
+/.vscode
+
+# python virtual environment
+/venv
+
+# python byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
