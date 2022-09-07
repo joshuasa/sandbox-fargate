@@ -12,7 +12,5 @@ README.md
 # python virtual environment
 /venv
 
-# python byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# python
+**/__pycache__
