@@ -4,7 +4,7 @@ This Python Tutorial Application integrates with various AWS Services and runs i
 
 ## Development Environment.
 
-1. Remote Ubuntu 20.04 LTS VM running on EC2. Except for IDE everything is installed and running on `Ubuntu DevBox` - Python virtual environments & libraries, Source Code, Git, Docker, AWS CLI, etc.
+1. Remote Ubuntu 20.04 LTS VM running on EC2. Except for IDE everything is installed and running on **Ubuntu DevBox** - Python virtual environments & libraries, Source Code, Git, Docker, AWS CLI, etc.
 2. Local machine running Visual Studio Code with Remote SSH extension and Terminal connecting to EC2 VM. Local machine therefore just being used as IDE frontend to remote Ubuntu DevBox.
 
 ## AWS CLI (Command Line Interface)
@@ -28,15 +28,15 @@ Test:
 $ aws --version
 ```
 
-Before setting up and using `AWS CLI` you need to create an `Access Key` (`Access Key ID` & `Secret Access Key`) for the IAM account you will be using. Go to the AWS IAM console, select the user/account and then under `Security Credentials` click `Create Access Key`.
+Before setting up and using **AWS CLI** you need to create an **Access Key** (**Access Key ID** & **Secret Access Key**) for the **AWS IAM** account you will be using. Go to the IAM console, select the user/account and then under **Security Credentials** choose **Create Access Key**.
 
-Use these Access Key Credentials to configure:
+Use the Access Key Credentials to configure:
 
 ```shell
 # default profile
 $ aws configure
 
-# to confige a named profile
+# to config a named profile
 $ aws configure --profile joshua
 ```
 
@@ -44,9 +44,9 @@ Configuration details are stored in `~/.aws/config` & `~/.aws/credentials`
 
 ## AWS ECR (Elastic Container Registry)
 
-This tutorial stores Docker Images on ECR. `AWS CLI` must be installed and configured (`aws configure`) for examples below to work.
+This tutorial stores Docker Images on ECR. **AWS CLI** must be installed and configured (`aws configure`) for examples below to work.
 
-One way of pushing images to ECR is to first do a `docker login`. Get the ECR login password with `AWS CLI` and pipe to `docker login`:
+One way of pushing images to ECR is to first do a `docker login`. Get the ECR login password with AWS CLI and pipe to `docker login`:
 
 ```shell
 $ aws ecr get-login-password \
@@ -72,7 +72,7 @@ Add to `~/.docker/config.json`:
 }
 ```
 
-Create ECR repository using either the console or `AWS CLI`:
+Create ECR repository using either the console or **AWS CLI**:
 
 ```shell
 aws ecr create-repository \
@@ -90,3 +90,9 @@ $ docker tag sandbox-fargate {aws_account_id}.dkr.ecr.{region}.amazonaws.com/san
 # push
 $ docker push {aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate
 ```
+
+## AWS Fargate: Task Definition
+
+We'll be setting up AWS ECS (Elastic Container Service) with a Fargate Launch Type to run our Docker Container.
+
+Create a Task Definition using the **ECS Console** (new experience) and selecting **Task Definitions**. Choose **Create New Task Definition**.
