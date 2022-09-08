@@ -6,12 +6,12 @@ Development Environment.
 
 ## AWS ECR (Elastic Container Registry)
 
-`AWS CLI` must be installed and configured (`aws configure`) for examples below to work.
-
-Docker images for this tutorial are stored on AWS ECR.
+Docker images for this tutorial are stored on AWS ECR. `AWS CLI` must be installed and configured (`aws configure`) for examples below to work.
 
 One way of pushing images to ECR is to first do a `docker login`. Get the ECR login password with `AWS CLI` and pipe to `docker login`.
 
 ```shell
 $ aws ecr get-login-password --region {region} | docker login --username AWS --password-stdin {aws_account_id}.dkr.ecr.{region}.amazonaws.com
 ```
+
+For this tutorial however I'm using the [Amazon ECR Docker Credential Helper](https://github.com/awslabs/amazon-ecr-credential-helper).
