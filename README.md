@@ -28,13 +28,15 @@ Test:
 $ aws --version
 ```
 
-Configure:
+Before setting up and using `AWS CLI` you need to create an `Access Key` (`Access Key ID` & `Secret Access Key`) for the IAM account you will be using. Go to the AWS IAM console, select the user/account and then under `Security Credentials` click `Create Access Key`.
+
+Use these Access Key Credentials to configure:
 
 ```shell
 # default profile
 $ aws configure
 
-# named profile
+# to confige a named profile
 $ aws configure --profile joshua
 ```
 
