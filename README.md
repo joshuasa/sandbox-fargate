@@ -42,6 +42,21 @@ $ aws configure --profile joshua
 
 Configuration details are stored in `~/.aws/config` & `~/.aws/credentials`
 
+## AWS IAM (Identity and Access Management)
+
+### Required: ECS Task Execution IAM Role
+
+`ecsTaskExecutionRole`
+
+The task execution role grants the Amazon ECS container and Fargate agents permission to make AWS API calls.
+
+To create the task execution role in the **IAM Console**:
+
+- In the console choose **Roles**, **Create Role**
+- For **Trusted Entity Type** choose `AWS Service`, **Use Case** `Elastic Container Service Task` then choose Next.
+- Under **Permissions Policies** search for `AmazonECSTaskExecutionRolePolicy` and select. Under **Set Permissions Boundary** choose **Create role without a permissions boundary** and then choose Next.
+- Under **Role Details**, for Role Name use `ecsTaskExecutionRole`. Leave the rest as is and choose **Create Role**.
+
 ## AWS ECR (Elastic Container Registry)
 
 This tutorial stores Docker Images on ECR. **AWS CLI** must be installed and configured (`aws configure`) for examples below to work.
@@ -99,4 +114,4 @@ We'll be setting up AWS ECS (Elastic Container Service) with a **Fargate Launch 
 
 - Specify **Task Definition Family** [`sandbox`]. Used to group multiple versions, also referred to as revisions, of the same task definition.
 
-- Under **Container Details** secify **Name** [`sandbox-fargate`] and **Image URI** [`{aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate:latest`]
+- Under **Container Details** secify **Name** [`sandbox-fargate`] and <br>**Image URI** [`{aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate:latest`]
