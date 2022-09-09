@@ -2,7 +2,7 @@
 
 This Python Tutorial Application integrates with various AWS Services and runs in a Docker Container on Fargate on AWS ECS (Elastic Container Service).
 
-## Development Environment.
+## Development Environment
 
 1. Remote Ubuntu 20.04 LTS VM running on EC2. Except for IDE everything is installed and running on **Ubuntu DevBox** - Python virtual environments & libraries, Source Code, Git, Docker, AWS CLI, etc.
 2. Local machine running Visual Studio Code with Remote SSH extension and Terminal connecting to EC2 VM. Local machine therefore just being used as IDE frontend to remote Ubuntu DevBox.
@@ -93,6 +93,10 @@ $ docker push {aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate
 
 ## AWS Fargate: Task Definition
 
-We'll be setting up AWS ECS (Elastic Container Service) with a Fargate Launch Type to run our Docker Container.
+We'll be setting up AWS ECS (Elastic Container Service) with a **Fargate Launch Type** to run our Docker Container. To get a proper understanding of everything involved we'll do a setup using the **ECS Console** and/or **AWS CLI**. Later we'll do the same setup using **AWS Copilot** as well as one using **AWS CDK**.
 
-Create a Task Definition using the **ECS Console** (new experience) and selecting **Task Definitions**. Choose **Create New Task Definition**.
+- Create a Task Definition using the **ECS Console** (new experience) and selecting **Task Definitions**. Choose **Create New Task Definition**.
+
+- Specify **Task Definition Family** [`sandbox`]. Used to group multiple versions, also referred to as revisions, of the same task definition.
+
+- Under **Container Details** secify **Name** [`sandbox-fargate`] and **Image URI** [`{aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate:latest`]
