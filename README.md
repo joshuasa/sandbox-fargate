@@ -1,6 +1,6 @@
 # Fargate SandBox: Python on AWS Tutorial App
 
-Python Tutorial Application integrating with various AWS Services. Runs in a Docker Container on ECS (Elastic Container Service) Fargate.
+Python Tutorial Application integrating with various AWS Services. Runs in a Docker Container on ECS (Elastic Container Service) **Fargate**.
 
 ## Development Environment
 
@@ -62,7 +62,29 @@ To create the task execution role in the **IAM Console**:
 - In the console choose **Roles**, **Create Role**
 - For **Trusted Entity Type** choose `AWS Service`, **Use Case** `Elastic Container Service Task` then choose Next.
 - Under **Permissions Policies** search for `AmazonECSTaskExecutionRolePolicy` and select. Under **Set Permissions Boundary** choose **Create role without a permissions boundary** and then choose Next.
-- Under **Role Details**, for Role Name use `ecsTaskExecutionRole`. Leave the rest as is and choose **Create Role**.
+- Under **Role Details**, for Role Name enter `ecsTaskExecutionRole`. Leave the rest as is and choose **Create Role**.
+
+`AmazonECSTaskExecutionRolePolicy` JSON:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecr:GetAuthorizationToken",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 ### Provide access to S3 Bucket
 
