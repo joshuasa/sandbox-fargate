@@ -1,6 +1,6 @@
 # Fargate SandBox: Python on AWS Tutorial App
 
-Python Tutorial Application integrating with various AWS Services. Runs in a Docker Container on ECS (Elastic Container Service) **Fargate**.
+Python Tutorial Application integrating with various AWS Services. Runs in a Docker Container on ECS (Elastic Container Service) **Fargate**. To get a proper understanding of the configuration involved we'll do a setup using the **ECS Console** and/or **AWS CLI**. Later we'll do the same setup using **AWS Copilot** as well as one using **AWS CDK**.
 
 ## Development Environment
 
@@ -99,7 +99,7 @@ As mentioned when creating the S3 Bucket above, the environment variable file wi
 - Select **Choose A Service** and then `S3`. Under **Actions** select `GetBucketLocation`. Under **Resources** choose **Specific** and next to **Bucket** choose **Add ARN**. Enter **Bucket Name** `sandbox-fargate`.
 - Choose **Review Policy**, enter **Name** `S3BucketSandboxFargateRead` and then **Create Policy**.
 
-Policy JSON:
+`S3BucketSandboxFargateRead` JSON:
 
 ```json
 {
@@ -170,7 +170,7 @@ $ docker push {aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate
 
 ## AWS Fargate: Task Definition
 
-We'll be setting up AWS ECS (Elastic Container Service) with a **Fargate Launch Type** to run our Docker Container. To get a proper understanding of everything involved we'll do a setup using the **ECS Console** and/or **AWS CLI**. Later we'll do the same setup using **AWS Copilot** as well as one using **AWS CDK**.
+We'll be setting up AWS ECS (Elastic Container Service) with a **Fargate Launch Type** to run our Docker Container.
 
 - Create a Task Definition using the **ECS Console** (new experience) and selecting **Task Definitions**. Choose **Create New Task Definition**.
 
