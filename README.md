@@ -42,9 +42,16 @@ $ aws configure --profile joshua
 
 Configuration details are stored in `~/.aws/config` & `~/.aws/credentials`
 
+## AWS S3 (Simple Storage Service)
+
+We need a **S3 Bucket** accessable by container. **Access Key** (Access Key ID & Secret Access Key) required by AWS SDK for Python (Boto3) will be injected into container as environment variables. The environment variable (`.env`) file required to do this will be stored in the bucket.
+
+- Create a S3 Bucket using the S3 Console. Select **Buckets** and choose **Create Bucket**.
+- Enter **Bucket Name** [`sandbox-fargate`] and select **AWS Region**. Leave the rest as is and choose **Create Bucket**.
+
 ## AWS IAM (Identity and Access Management)
 
-### ECS Task Execution IAM Role
+### Create ECS Task Execution IAM Role
 
 `ecsTaskExecutionRole`
 
@@ -57,12 +64,38 @@ To create the task execution role in the **IAM Console**:
 - Under **Permissions Policies** search for `AmazonECSTaskExecutionRolePolicy` and select. Under **Set Permissions Boundary** choose **Create role without a permissions boundary** and then choose Next.
 - Under **Role Details**, for Role Name use `ecsTaskExecutionRole`. Leave the rest as is and choose **Create Role**.
 
-## AWS S3 (Simple Storage Service)
+### Provide access to S3 Bucket
 
-We need a **S3 Bucket** accessable by container. **Access Key** (Access Key ID & Secret Access Key) required by AWS SDK for Python (Boto3) will be injected into container as environment variables. The `.env` file required to do this will be stored in the bucket.
+`sandbox-fargate`
 
-- Create a S3 Bucket using the S3 Console and selecting **Buckets**. Choose **Create Bucket**.
-- Enter **Bucket Name** [`sandbox-fargate`] and select **AWS Region**. Leave the rest as is and choose **Create Bucket**.
+As mentioned when creating the S3 Bucket above, the environment variable file will be pulled from Amazon S3. To provide container access to S3:
+
+- In the **IAM Console** choose **Roles** and select `ecsTaskExecutionRole`.
+- Under **Permissions**, **Add Permissions** select **Create Inline Policy**.
+- Select **Choose A Service** and then `S3`. Under **Actions** select `GetObject`. Under **Resources** choose **Specific** and next to **Object** choose **Add ARN**. Enter **Bucket Name** `sandbox-fargate` and for **Object** select **Any**.
+- Select **Add Addisional Permissions**.
+- Select **Choose A Service** and then `S3`. Under **Actions** select `GetBucketLocation`. Under **Resources** choose **Specific** and next to **Bucket** choose **Add ARN**. Enter **Bucket Name** `sandbox-fargate`.
+- Choose **Review Policy**, enter **Name** `S3BucketSandboxFargateRead` and then **Create Policy**.
+
+Policy JSON:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::sandbox-fargate/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:GetBucketLocation",
+            "Resource": "arn:aws:s3:::sandbox-fargate"
+        }
+    ]
+}
+```
 
 ## AWS ECR (Elastic Container Registry)
 
