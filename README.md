@@ -61,6 +61,9 @@ To create the task execution role in the **IAM Console**:
 
 We need a **S3 Bucket** accessable by container. **Access Key** (Access Key ID & Secret Access Key) required by AWS SDK for Python (Boto3) will be injected into container as environment variables. The `.env` file required to do this will be stored in the bucket.
 
+- Create a S3 Bucket using the S3 Console and selecting **Buckets**. Choose **Create Bucket**.
+- Enter **Bucket Name** [`sandbox-fargate`] and select **AWS Region**. Leave the rest as is and choose **Create Bucket**.
+
 ## AWS ECR (Elastic Container Registry)
 
 Tutorial stores Docker Images on ECR. **AWS CLI** must be installed and configured (`aws configure`) for examples below to work.
@@ -116,6 +119,6 @@ We'll be setting up AWS ECS (Elastic Container Service) with a **Fargate Launch 
 
 - Create a Task Definition using the **ECS Console** (new experience) and selecting **Task Definitions**. Choose **Create New Task Definition**.
 
-- Specify **Task Definition Family** [`sandbox`]. Used to group multiple versions, also referred to as revisions, of the same task definition.
+- Enter **Task Definition Family** [`sandbox`]. Used to group multiple versions, also referred to as revisions, of the same task definition.
 
 - Under **Container Details** secify **Name** [`sandbox-fargate`] and <br>**Image URI** [`{aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate:latest`]
