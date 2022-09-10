@@ -1,6 +1,6 @@
 # Fargate SandBox: Python on AWS Tutorial App
 
-This Python Tutorial Application integrates with various AWS Services and runs in a Docker Container on Fargate on AWS ECS (Elastic Container Service).
+Python Tutorial Application integrating with various AWS Services. Runs in a Docker Container on ECS (Elastic Container Service) Fargate.
 
 ## Development Environment
 
@@ -57,9 +57,13 @@ To create the task execution role in the **IAM Console**:
 - Under **Permissions Policies** search for `AmazonECSTaskExecutionRolePolicy` and select. Under **Set Permissions Boundary** choose **Create role without a permissions boundary** and then choose Next.
 - Under **Role Details**, for Role Name use `ecsTaskExecutionRole`. Leave the rest as is and choose **Create Role**.
 
+## AWS S3 (Simple Storage Service)
+
+We need a **S3 Bucket** accessable by container. **Access Key** (Access Key ID & Secret Access Key) required by AWS SDK for Python (Boto3) will be injected into container as environment variables. The `.env` file required to do this will be stored in the bucket.
+
 ## AWS ECR (Elastic Container Registry)
 
-This tutorial stores Docker Images on ECR. **AWS CLI** must be installed and configured (`aws configure`) for examples below to work.
+Tutorial stores Docker Images on ECR. **AWS CLI** must be installed and configured (`aws configure`) for examples below to work.
 
 One way of pushing images to ECR is to first do a `docker login`. Get the ECR login password with AWS CLI and pipe to `docker login`:
 
