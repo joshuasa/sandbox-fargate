@@ -44,7 +44,7 @@ Configuration details are stored in `~/.aws/config` & `~/.aws/credentials`
 
 ## AWS IAM (Identity and Access Management)
 
-### Required: ECS Task Execution IAM Role
+### ECS Task Execution IAM Role
 
 `ecsTaskExecutionRole`
 
