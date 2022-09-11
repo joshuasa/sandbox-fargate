@@ -1,6 +1,8 @@
 # Fargate SandBox: Python on AWS Tutorial App
 
-Python Tutorial Application integrating with various AWS Services. Runs in a Docker Container on ECS (Elastic Container Service) **Fargate**. To get a proper understanding of the configuration involved we'll do a setup using the **ECS Console** and/or **AWS CLI**. Later we'll do the same setup using **AWS Copilot** as well as one using **AWS CDK**.
+Python Tutorial Application integrating with various AWS Services. Runs in a Docker Container on **Fargate**. You can run Fargate on either AWS ECS (Elastic Container Service) or AWS EKS (Elastic Kubernetes Service). In this tutorial we'll be using ECS.
+
+To get a proper understanding of the configuration involved we'll do a setup using the **AWS Console** and/or **AWS CLI**. Later we'll do the same setup using **AWS Copilot** as well as one using **AWS CDK**.
 
 ## Development Environment
 
@@ -168,11 +170,15 @@ $ docker tag sandbox-fargate {aws_account_id}.dkr.ecr.{region}.amazonaws.com/san
 $ docker push {aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate
 ```
 
-## AWS Fargate: Task Definition
+## AWS Fargate
 
 We'll be setting up AWS ECS (Elastic Container Service) with a **Fargate Launch Type** to run our Docker Container.
 
-- Create a Task Definition using the **ECS Console** (new experience) and selecting **Task Definitions**. Choose **Create New Task Definition**.
+### Create Task Definition
+
+Using the **ECS Console** (new experience):
+
+- Select **Task Definitions** and choose **Create New Task Definition**.
 
 - Enter **Task Definition Family** [`sandbox`]. Used to group multiple versions, also referred to as revisions, of the same task definition.
 
