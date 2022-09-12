@@ -53,7 +53,7 @@ We need a **S3 Bucket** accessable by container. **Access Key** (Access Key ID &
 
 ## AWS IAM (Identity and Access Management)
 
-### Create ECS Task Execution IAM Role
+### ECS Task Execution Role
 
 `ecsTaskExecutionRole`
 
@@ -88,7 +88,15 @@ To create the task execution role in the **IAM Console**:
 }
 ```
 
-### Provide access to S3 Bucket
+### ECS Service-Linked Role
+
+`AWSServiceRoleForECS`
+
+ECS uses a service-linked role for the permissions the service requires to call other AWS services. A service-linked role is a unique type of IAM role that is linked directly to an AWS service.
+
+You don't need to manually create the service-linked role, when you create a new cluster ECS creates the service-linked role for you. In the IAM Console under Roles you can take a look at the permissions granted by `AWSServiceRoleForECS`.
+
+### Access to S3 Bucket
 
 `sandbox-fargate`
 
