@@ -24,7 +24,7 @@ $ sudo ./aws/install
 $ sudo ./aws/install --update
 ```
 
-Test:
+Verify installation:
 
 ```shell
 $ aws --version
@@ -43,6 +43,29 @@ $ aws configure --profile joshua
 ```
 
 Configuration details are stored in `~/.aws/config` & `~/.aws/credentials`
+
+### Session Manager plugin for AWS CLI
+
+Required for **Amazon ECS Exec** that we'll be using to directly interact with containers.
+
+Install & Uninstall:
+
+```shell
+# download
+$ curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+
+# install
+$ sudo dpkg -i session-manager-plugin.deb
+
+# if you want to uninstall
+$ sudo dpkg -r session-manager-plugin
+```
+
+Verify installation:
+
+```shell
+$ session-manager-plugin
+```
 
 ## AWS S3 (Simple Storage Service)
 
