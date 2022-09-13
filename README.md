@@ -57,7 +57,7 @@ We need a **S3 Bucket** accessable by container. **Access Key** (Access Key ID &
 
 `ecsTaskExecutionRole`
 
-The task execution role grants the Amazon ECS container and Fargate agents permission to make AWS API calls.
+The task execution IAM role grants the container agent permission to make AWS API calls on your behalf.
 
 To create the task execution role in the **IAM Console**:
 
@@ -88,19 +88,11 @@ To create the task execution role in the **IAM Console**:
 }
 ```
 
-### ECS Service-Linked Role
+### ECS Task Execution Role: Access to S3 Bucket
 
-`AWSServiceRoleForECS`
+`S3BucketSandboxFargateRead`
 
-ECS uses a service-linked role for the permissions the service requires to call other AWS services. A service-linked role is a unique type of IAM role that is linked directly to an AWS service.
-
-You don't need to manually create the service-linked role, when you create a new cluster ECS creates the service-linked role for you. In the IAM Console under Roles you can take a look at the permissions granted by `AWSServiceRoleForECS`.
-
-### Access to S3 Bucket
-
-`sandbox-fargate`
-
-As mentioned when creating the S3 Bucket above, the environment variable file will be pulled from Amazon S3. To provide container access to S3:
+As mentioned when creating the S3 Bucket above, the environment variable file will be pulled from Amazon S3. We need to add permissions to `ecsTaskExecutionRole` to be able to access to this S3 Bucket:
 
 - In the **IAM Console** choose **Roles** and select `ecsTaskExecutionRole`.
 - Under **Permissions**, **Add Permissions** select **Create Inline Policy**.
@@ -128,6 +120,14 @@ As mentioned when creating the S3 Bucket above, the environment variable file wi
     ]
 }
 ```
+
+### ECS Service-Linked Role
+
+`AWSServiceRoleForECS`
+
+ECS uses a service-linked role for the permissions the service requires to call other AWS services. As the name implies, a service-linked role is a unique type of IAM role that is linked directly to an AWS service.
+
+You don't need to manually create the service-linked role. When you create a new cluster ECS creates the service-linked role for you. In the **IAM Console** under **Roles** you can take a look at the permissions granted by `AWSServiceRoleForECS`.
 
 ## AWS ECR (Elastic Container Registry)
 
