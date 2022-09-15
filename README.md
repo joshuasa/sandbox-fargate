@@ -83,6 +83,50 @@ We need a **S3 Bucket** accessable by container. **Access Key** (Access Key ID &
 
 Amazon ECS tasks can have an IAM role associated with them. The permissions granted in the IAM role are assumed by the containers running in the task.
 
+**Create IAM Policy for required SSM permissions**
+
+`SSMPermissionsForEcsExec`
+
+The **ECS Exec** feature requires a task IAM role to grant containers the permissions needed for communication between the managed SSM agent and the SSM service.
+
+In the **IAM Console**:
+
+- Choose **Policies** and then **Create Policy**
+- Select the **JSON Tab** and paste the following:
+
+```json
+{
+   "Version": "2012-10-17",
+   "Statement": [
+       {
+       "Effect": "Allow",
+       "Action": [
+            "ssmmessages:CreateControlChannel",
+            "ssmmessages:CreateDataChannel",
+            "ssmmessages:OpenControlChannel",
+            "ssmmessages:OpenDataChannel"
+       ],
+      "Resource": "*"
+      }
+   ]
+}
+```
+
+- Choose **Next: Tags** and then **Next: Review**
+- Under **Name** enter `SSMPermissionsForEcsExec` and choose **Create Policy**
+
+**Create IAM Role for Tasks**
+
+`ecsTaskRole`
+
+In the **IAM Console**:
+
+- Choose **Roles** and then **Create Role**
+- For **Select Trusted Entity** choose **AWS Service**
+- For **Use Case** select **Elastic Container Service** then **Elastic Container Service Task** and then choose **Next**
+- Under **Add Permissions** choose the policy we've just created (`SSMPermissionsForEcsExec`) and then **Next**
+- On **Step 3** for **Role Name** enter `ecsTaskRole` and choose **Create Role**
+
 ### ECS Task Execution Role
 
 `ecsTaskExecutionRole`
