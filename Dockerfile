@@ -8,3 +8,6 @@ WORKDIR /app
 COPY . ./
 
 RUN pip install -r requirements.txt
+
+# keep container running: for fargate debugging (remove in production version)
+CMD tail -f /dev/null
