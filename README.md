@@ -215,3 +215,9 @@ Using the **ECS Console** (new experience):
 - Enter **Task Definition Family** [`sandbox`]. Used to group multiple versions, also referred to as revisions, of the same task definition.
 
 - Under **Container Details** secify **Name** [`sandbox-fargate`] and <br>**Image URI** [`{aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate:latest`]
+
+## Amazon ECS Exec
+
+With **Amazon ECS Exec** you can directly interact with containers on **Fargate** without needing to first open inbound ports or manage SSH keys.
+
+ECS Exec makes use of **AWS Systems Manager (SSM) Session Manager** to establish a connection with the running container and uses AWS IAM policies to control access. This is made possible by bind-mounting the necessary SSM agent binaries into the container. The AWS Fargate agent is responsible for starting the SSM core agent inside the container alongside your application code.
