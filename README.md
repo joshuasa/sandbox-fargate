@@ -65,6 +65,7 @@ Verify installation:
 
 ```shell
 $ session-manager-plugin
+$ session-manager-plugin --version
 ```
 
 ## AWS S3 (Simple Storage Service)
