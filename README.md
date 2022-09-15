@@ -75,13 +75,19 @@ We need a **S3 Bucket** accessable by container. **Access Key** (Access Key ID &
 - Create a S3 Bucket using the S3 Console. Select **Buckets** and choose **Create Bucket**.
 - Enter **Bucket Name** [`sandbox-fargate`] and select **AWS Region**. Leave the rest as is and choose **Create Bucket**.
 
-## AWS IAM (Identity and Access Management)
+## AWS IAM (Identity and Access Management) Roles and Policies
+
+### ECS Task Role
+
+`ecsTaskRole`
+
+Amazon ECS tasks can have an IAM role associated with them. The permissions granted in the IAM role are assumed by the containers running in the task.
 
 ### ECS Task Execution Role
 
 `ecsTaskExecutionRole`
 
-The task execution IAM role grants the container agent permission to make AWS API calls on your behalf.
+The task execution IAM role grants the ECS agent permission to make AWS API calls on your behalf.
 
 To create the task execution role in the **IAM Console**:
 
