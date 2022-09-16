@@ -12,5 +12,8 @@ README.md
 # python virtual environment
 /venv
 
+# aws cli commands and parameters
+/aws-cli
+
 # python
 **/__pycache__
