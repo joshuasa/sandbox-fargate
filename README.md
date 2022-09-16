@@ -284,7 +284,11 @@ Using the **ECS Console** (new experience):
 To allow **ECS Exec** to interact with containers run the following **AWS CLI** command on the service:
 
 ```shell
-$ aws ecs update-service --cluster sandbox-cluster --task-definition sandbox --service sandbox-service --enable-execute-command
+$ aws ecs update-service \
+      --cluster sandbox-cluster \
+      --task-definition sandbox \
+      --service sandbox-service \
+      --enable-execute-command
 ```
 
 Note: You can select the service and choose **Edit** to set the **Desired Tasks** to `0` if you're just testing for example and only want to run a container/task as required.
@@ -296,5 +300,10 @@ With **Amazon ECS Exec** you can directly interact with containers on **Fargate*
 ECS Exec makes use of **AWS Systems Manager (SSM) Session Manager** to establish a connection with the running container and uses AWS IAM policies to control access. This is made possible by bind-mounting the necessary SSM agent binaries into the container. The AWS Fargate agent is responsible for starting the SSM core agent inside the container alongside your application code.
 
 ```shell
-$ aws ecs execute-command --cluster sandbox-cluster --task {task-id} --container sandbox-fargate --interactive --command "bash"
+$ aws ecs execute-command \
+      --cluster sandbox-cluster \
+      --task {task-id} \
+      --container sandbox-fargate \
+      --interactive \
+      --command "bash"
 ```
