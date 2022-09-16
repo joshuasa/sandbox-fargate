@@ -260,21 +260,34 @@ We'll be setting up AWS ECS (Elastic Container Service) with a **Fargate Launch 
 
 Using the **ECS Console** (new experience):
 
-- Select **Task Definitions** and choose **Create New Task Definition**.
-
-- Enter **Task Definition Family** [`sandbox`]. Used to group multiple versions, also referred to as revisions, of the same task definition.
-
+- Select **Task Definitions** and choose **Create New Task Definition**
+- Enter `sandbox` for **Task Definition Family**. Used to group multiple versions, also referred to as revisions, of the same task definition
 - Under **Container Details** enter **Name** [`sandbox-fargate`] and <br>**Image URI** [`{aws_account_id}.dkr.ecr.{region}.amazonaws.com/sandbox-fargate:latest`]
-
 - We don't need any **Port Mappings** for this tutorial, you can remove the default port 80 mapping and choose **Next**
-
 - Under **Environment** choose `AWS Fargate` for **App Environment**, `Linux/X86_64` for **Operating System/Architecture**, `.25 vCPU` for **CPU**, `.5 GB` for **Memory**
-
 - Select **Task Role** select `ecsTaskRole` and `ecsTaskExecutionRole` for **Task Execation Role**
-
 - Under **Monitoring and Logging** use the defaults (**Use Log Collection** & `Amazon CloudWatch`) and choose **Next**
-
 - On **Review and Create** page choose **Create**
+
+### Cluster
+
+- Select **Clusters** and choose **Create Cluster**
+- Enter `sandbox-cluster` for **Cluster Name** use the defaults for rest and choose **Create**
+
+### Service
+
+- Go to **Clusters** and select `sandbox-cluster` and with **Services** tab selected choose **Deploy**
+- Under **Compute Configuration** for **Compute Options** select `Launch Type`, `Fargate` and `Latest`
+- Under **Deployment Configuration** for **Application Type** select `Service`, **Family** `sandbox`, **Revision** `latest`, **Service Name** `sandbox-service` and **Desired Tasks** `1`
+- For the rest use the default and choose **Deploy**
+
+To allow **ECS Exec** to interact with containers run the following **AWS CLI** command on the service:
+
+```shell
+$ aws ecs update-service --cluster sandbox-cluster --task-definition sandbox --service sandbox-service --enable-execute-command
+```
+
+Note: You can select the service and choose **Edit** to set the **Desired Tasks** to `0` if you're just testing for example and only want to run a container/task as required.
 
 ## Amazon ECS Exec
 
@@ -283,7 +296,5 @@ With **Amazon ECS Exec** you can directly interact with containers on **Fargate*
 ECS Exec makes use of **AWS Systems Manager (SSM) Session Manager** to establish a connection with the running container and uses AWS IAM policies to control access. This is made possible by bind-mounting the necessary SSM agent binaries into the container. The AWS Fargate agent is responsible for starting the SSM core agent inside the container alongside your application code.
 
 ```shell
-$ aws ecs update-service --cluster sandbox-cluster --task-definition sandbox --service sandbox-service --enable-execute-command
-
 $ aws ecs execute-command --cluster sandbox-cluster --task {task-id} --container sandbox-fargate --interactive --command "bash"
 ```
