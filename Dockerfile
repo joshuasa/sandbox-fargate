@@ -9,5 +9,8 @@ COPY . ./
 
 RUN pip install -r requirements.txt
 
-# keep container running: for fargate debugging (remove in production version)
-CMD tail -f /dev/null
+ENTRYPOINT ["python", "-m"]
+CMD ["bin.run"]
+
+# to keep container running
+# CMD tail -f /dev/null
