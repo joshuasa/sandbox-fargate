@@ -279,7 +279,7 @@ Using the **ECS Console** (new experience):
 - Go to **Clusters** and select `sandbox-cluster` and with **Services** tab selected choose **Deploy**
 - Under **Compute Configuration** for **Compute Options** select `Launch Type`, `Fargate` and `Latest`
 - Under **Deployment Configuration** for **Application Type** select `Service`, **Family** `sandbox`, **Revision** `latest`, **Service Name** `sandbox-service` and **Desired Tasks** `1`
-- For the rest use the default and choose **Deploy**
+- For the rest use the defaults and choose **Deploy**
 
 To allow **ECS Exec** to interact with containers run the following **AWS CLI** command on the service:
 
@@ -299,6 +299,8 @@ With **Amazon ECS Exec** you can directly interact with containers on **Fargate*
 
 ECS Exec makes use of **AWS Systems Manager (SSM) Session Manager** to establish a connection with the running container and uses AWS IAM policies to control access. This is made possible by bind-mounting the necessary SSM agent binaries into the container. The AWS Fargate agent is responsible for starting the SSM core agent inside the container alongside your application code.
 
+The following gives you a command line inside a running Fargate container:
+
 ```shell
 $ aws ecs execute-command \
       --cluster sandbox-cluster \
@@ -306,4 +308,20 @@ $ aws ecs execute-command \
       --container sandbox-fargate \
       --interactive \
       --command "bash"
+```
+
+Make sure that the role of the profile used to run the AWS CLI contains a policy that allows the action `ecs:ExecuteCommand`:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "User access to ECS ExecuteCommand",
+            "Effect": "Allow",
+            "Action": "ecs:ExecuteCommand",
+            "Resource": "*"
+        }
+    ]
+}
 ```
