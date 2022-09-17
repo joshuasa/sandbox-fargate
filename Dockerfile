@@ -11,6 +11,3 @@ RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python", "-m"]
 CMD ["bin.run"]
-
-# to keep container running
-# CMD tail -f /dev/null
