@@ -2,6 +2,17 @@
 
 Python Tutorial Application integrating with various AWS Services. Runs in a Docker Container on **Fargate**. You can run Fargate on either AWS ECS (Elastic Container Service) or AWS EKS (Elastic Kubernetes Service). In this tutorial we'll be using ECS.
 
+### Some of the things we'll be doing:
+
+- Install and configure **AWS CLI**
+- Use **AWS ECR** as our container registry
+- **Manually run** container on Fargate **passing different commands** using AWS CLI
+- Directly interact (login) with our container running on **Fargate** using **Amazon ECS Exec**
+- Pass **environment variables** to container using an environment variable file stored in a **S3 Bucket**
+- Log container output to **AWS CloudWatch Logs**
+- Monitor CloudWatch Logs using a **AWS Lamda Function**
+- Schedule running of container using **Amazon EventBridge**
+
 To get a proper understanding of the configuration involved we'll do a setup using the **AWS Console** and/or **AWS CLI**. Later we'll do the same setup using **AWS Copilot** as well as one using **AWS CDK**.
 
 ## Development Environment
