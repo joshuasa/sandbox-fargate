@@ -10,7 +10,7 @@ Python Tutorial Application integrating with various AWS Services. Runs in a Doc
 - Directly interact (login) with our container running on **Fargate** using **Amazon ECS Exec**
 - Pass **environment variables** to container using an environment variable file stored in a **S3 Bucket**
 - Log container output to **AWS CloudWatch Logs**
-- Monitor CloudWatch Logs using a **AWS Lamda Function**
+- Monitor CloudWatch Logs, sending notifications under certain conditions using **AWS Lambda**
 - Schedule running of container using **Amazon EventBridge**
 
 To get a proper understanding of the configuration involved we'll do a setup using the **AWS Console** and/or **AWS CLI**. Later we'll do the same setup using **AWS Copilot** as well as one using **AWS CDK**.
