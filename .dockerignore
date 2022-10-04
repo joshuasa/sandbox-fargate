@@ -15,5 +15,8 @@ README.md
 # aws cli commands and parameters
 /aws-cli
 
+# lamda function folder
+/lambda
+
 # python
 **/__pycache__
