@@ -1,0 +1,8 @@
+#!/bin/bash
+aws ecs run-task \
+    --cluster sandbox-cluster \
+    --task-definition sandbox:8 \
+    --launch-type="FARGATE" \
+    --network-configuration file://network.json \
+    --overrides file://overrides.json \
+    --enable-execute-command

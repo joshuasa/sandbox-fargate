@@ -4,9 +4,6 @@
 # python virtual environment
 /venv
 
-# aws cli commands and parameters
-/aws-cli
-
 # dotenv file
 .env
 
