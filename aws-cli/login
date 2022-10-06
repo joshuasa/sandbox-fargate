@@ -1,7 +1,7 @@
 #!/bin/bash
 aws ecs execute-command \
       --cluster sandbox-cluster \
-      --task 7916e530b30b445088e81ed04176e326 \
+      --task 138821f4a562459ab725d69af0c0ef52 \
       --container sandbox-fargate \
       --interactive \
       --command "bash"

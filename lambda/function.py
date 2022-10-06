@@ -1,14 +1,15 @@
 import base64
-from cmath import log
 import boto3
 import gzip
 import json
 import logging
+import sys
 
 from botocore.exceptions import ClientError
+from cmath import log
 
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 logger = logging.getLogger(__name__)
 
 
@@ -27,6 +28,23 @@ def error_details(payload):
 
     error_msg = ''
     log_events = payload['logEvents']
+    logger.debug(payload)
+    
+    loggroup = payload['logGroup']
+    logstream = payload['logStream']
+    lambda_func_name = loggroup.split('/')
+    
+    logger.debug(f'LogGroup: {loggroup}')
+    logger.debug(f'Logstream: {logstream}')
+    logger.debug(f'Function name: {lambda_func_name[3]}')
+    logger.debug(log_events)
+    
+    for log_event in log_events:
+        error_msg += log_event['message']
+    
+    logger.debug('Message: %s' % error_msg.split("\n"))
+
+    return loggroup, logstream, error_msg, lambda_func_name
 
 
 def lambda_handler(event, context):
